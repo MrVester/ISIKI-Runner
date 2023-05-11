@@ -982,6 +982,7 @@ GameObject:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
+  - component: {fileID: 963194229}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1021,7 +1022,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 100
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -1055,6 +1056,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &963194229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cbcd222e3ef1ea419c88c6cca14affd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _shader: {fileID: 4800000, guid: 33eb4f1458855c246b3e140bf386bc5f, type: 3}
+  _nearColor: {r: 0, g: 0, b: 0, a: 0}
+  _farColor: {r: 0.6247397, g: 0.4493592, b: 0.9622642, a: 0}
 --- !u!1 &1155106396
 GameObject:
   m_ObjectHideFlags: 0
@@ -1503,11 +1519,11 @@ CapsuleCollider:
   m_GameObject: {fileID: 1995220330}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 0
-  m_Radius: 1
-  m_Height: 4
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0, y: 2, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!4 &1995220334
 Transform:
   m_ObjectHideFlags: 0
@@ -1550,12 +1566,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1088721012211715046}
-  - component: {fileID: 1088721012211715049}
-  - component: {fileID: 1088721012211715048}
-  - component: {fileID: 1088721012211715047}
   - component: {fileID: 1088721012211715050}
   m_Layer: 0
-  m_Name: Astronaut
+  m_Name: Astronaut Animator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1705,54 +1718,6 @@ Transform:
   m_Father: {fileID: 1995220334}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1088721012211715047
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 310811401101922652}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 619f89ec73d89e440b709e9b45858c38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  swipeListener: {fileID: 1708087166}
---- !u!114 &1088721012211715048
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 310811401101922652}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1e43b9e6b58a584da694405082c7b4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  swipeTime: 0.3
-  cam: {fileID: 963194227}
-  center: {fileID: 407344388}
-  defaultRadius: 10
-  radiusOffset: -0.3
-  jumpHeight: 4
-  gravityScale: 2
-  velocity: 0
-  animator: {fileID: 0}
---- !u!136 &1088721012211715049
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 310811401101922652}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 1
-  m_Height: 4
-  m_Direction: 1
-  m_Center: {x: 0, y: 2, z: 0}
 --- !u!95 &1088721012211715050
 Animator:
   serializedVersion: 4
