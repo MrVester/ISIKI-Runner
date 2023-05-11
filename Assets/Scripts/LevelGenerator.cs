@@ -17,7 +17,7 @@ public class LevelGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        //Generate first 7 tonnels
         for (int i = -1; i < startTonnelAmount - 1; i++)
         {
             randomAngle = Random.Range(0, 7) * 45;
@@ -32,9 +32,9 @@ public class LevelGenerator : MonoBehaviour
 
             instances.Add(Instantiate(levelPrefabs[randomPrefab], new Vector3(0, 0, i * 20), Quaternion.Euler(new Vector3(0, 0, defaultRot + randomAngle))));
 
-            //Delete last added element
-            //instances.RemoveAt(instances.Count-1);
+
         }
+
         foreach (GameObject gameObject in instances)
         {
             gameObject.AddComponent<AddForce>();
@@ -49,7 +49,8 @@ public class LevelGenerator : MonoBehaviour
             randomAngle = Random.Range(0, 7) * 45;
             randomPrefab = Random.Range(0, levelPrefabs.Length);
             float posZofLastInstance = instances[instances.Count - 1].transform.position.z;
-            instances.Add(Instantiate(levelPrefabs[randomPrefab], new Vector3(0, 0, posZofLastInstance + 20 - instances[0].GetComponent<AddForce>().speed), Quaternion.Euler(new Vector3(0, 0, defaultRot + randomAngle))));
+            float offset = instances[0].GetComponent<AddForce>().speed;
+            instances.Add(Instantiate(levelPrefabs[randomPrefab], new Vector3(0, 0, posZofLastInstance + 20 - offset), Quaternion.Euler(new Vector3(0, 0, defaultRot + randomAngle))));
             instances[instances.Count - 1].AddComponent<AddForce>();
             Destroy(instances[0]);
             instances.RemoveAt(0);
