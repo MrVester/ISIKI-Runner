@@ -5,7 +5,7 @@ using UnityEngine;
 public class LevelGenerator : MonoBehaviour
 {
     // const float defaultRot = 11.25f;
-
+    public float speed = 0.5f;
     public float offsetBetweenInstances = 0.1f;
     public GameObject[] levelPrefabs;
     public int startTonnelAmount = 7;
@@ -38,22 +38,23 @@ public class LevelGenerator : MonoBehaviour
 
         foreach (GameObject gameObject in instances)
         {
-            gameObject.AddComponent<AddForce>();
             gameObject.AddComponent<TriggerEnter>();
         }
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
+        foreach (GameObject gameObject in instances)
+        {
+            gameObject.transform.Translate(0, 0, -1 * speed);
+        }
         if (instances.Count != 0 && instances[0].transform.position.z < -40)
         {
-            randomAngle = Random.Range(0, 7) * 45;
+            randomAngle = Random.Range(0, 8) * 45;
             randomPrefab = Random.Range(0, levelPrefabs.Length);
             float posZofLastInstance = instances[instances.Count - 1].transform.position.z;
-            float offset = instances[0].GetComponent<AddForce>().speed;
-            instances.Add(Instantiate(levelPrefabs[randomPrefab], new Vector3(0, 0, posZofLastInstance + 20 - offset), Quaternion.Euler(new Vector3(0, 0, /*defaultRot*/levelPrefabs[randomPrefab].transform.rotation.eulerAngles.z + randomAngle))));
-            instances[instances.Count - 1].AddComponent<AddForce>();
+            instances.Add(Instantiate(levelPrefabs[randomPrefab], new Vector3(0, 0, posZofLastInstance + 20 - speed), Quaternion.Euler(new Vector3(0, 0, /*defaultRot*/levelPrefabs[randomPrefab].transform.rotation.eulerAngles.z + randomAngle))));
             instances[instances.Count - 1].AddComponent<TriggerEnter>();
             Destroy(instances[0]);
             instances.RemoveAt(0);
