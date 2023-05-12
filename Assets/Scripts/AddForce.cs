@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class AddForce : MonoBehaviour
 {
-    public float speed = 0.1f;
+    public float speed = 0.5f;
 
-    void Update()
+    void FixedUpdate()
     {
         transform.Translate(0, 0, -1 * speed);
     }

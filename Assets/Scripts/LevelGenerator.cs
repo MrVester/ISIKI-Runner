@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour
 {
-    const float defaultRot = 11.25f;
+    // const float defaultRot = 11.25f;
 
     public float offsetBetweenInstances = 0.1f;
     public GameObject[] levelPrefabs;
-    public int startTonnelAmount = 6;
+    public int startTonnelAmount = 7;
+    public int startDefaultTonnelAmount = 4;
     public List<GameObject> instances;
     private int randomPrefab;
     private int randomAngle;
@@ -21,7 +22,7 @@ public class LevelGenerator : MonoBehaviour
         for (int i = -1; i < startTonnelAmount - 1; i++)
         {
             randomAngle = Random.Range(0, 7) * 45;
-            if (i == -1 || i == 0)
+            if (i >= -1 && i <= startDefaultTonnelAmount)
             {
                 randomPrefab = 0;
             }
@@ -30,7 +31,7 @@ public class LevelGenerator : MonoBehaviour
                 randomPrefab = Random.Range(0, levelPrefabs.Length);
             }
 
-            instances.Add(Instantiate(levelPrefabs[randomPrefab], new Vector3(0, 0, i * 20), Quaternion.Euler(new Vector3(0, 0, defaultRot + randomAngle))));
+            instances.Add(Instantiate(levelPrefabs[randomPrefab], new Vector3(0, 0, i * 20), Quaternion.Euler(new Vector3(0, 0, levelPrefabs[randomPrefab].transform.rotation.eulerAngles.z + randomAngle))));
 
 
         }
@@ -38,6 +39,7 @@ public class LevelGenerator : MonoBehaviour
         foreach (GameObject gameObject in instances)
         {
             gameObject.AddComponent<AddForce>();
+            gameObject.AddComponent<TriggerEnter>();
         }
     }
 
@@ -50,8 +52,9 @@ public class LevelGenerator : MonoBehaviour
             randomPrefab = Random.Range(0, levelPrefabs.Length);
             float posZofLastInstance = instances[instances.Count - 1].transform.position.z;
             float offset = instances[0].GetComponent<AddForce>().speed;
-            instances.Add(Instantiate(levelPrefabs[randomPrefab], new Vector3(0, 0, posZofLastInstance + 20 - offset), Quaternion.Euler(new Vector3(0, 0, defaultRot + randomAngle))));
+            instances.Add(Instantiate(levelPrefabs[randomPrefab], new Vector3(0, 0, posZofLastInstance + 20 - offset), Quaternion.Euler(new Vector3(0, 0, /*defaultRot*/levelPrefabs[randomPrefab].transform.rotation.eulerAngles.z + randomAngle))));
             instances[instances.Count - 1].AddComponent<AddForce>();
+            instances[instances.Count - 1].AddComponent<TriggerEnter>();
             Destroy(instances[0]);
             instances.RemoveAt(0);
         }
