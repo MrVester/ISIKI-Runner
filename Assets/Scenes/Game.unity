@@ -575,7 +575,7 @@ MonoBehaviour:
   - {fileID: 3441412115625219453, guid: 01e913f79205aaf4e96603dc40e46996, type: 3}
   - {fileID: 8887971477420295245, guid: 47bed7ec4a1f9e64a9001c98f8e43fe8, type: 3}
   - {fileID: 8887971477420295245, guid: 47bed7ec4a1f9e64a9001c98f8e43fe8, type: 3}
-  startTonnelAmount: 7
+  startTonnelAmount: 10
   startDefaultTonnelAmount: 4
   instances: []
 --- !u!4 &377129674
@@ -1637,7 +1637,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 100
+  far clip plane: 150
   field of view: 60
   orthographic: 0
   orthographic size: 5
