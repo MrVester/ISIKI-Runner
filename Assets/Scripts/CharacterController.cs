@@ -36,6 +36,7 @@ public class CharacterController : MonoBehaviour
     void Start()
     {
         //animator = GetComponent<Animator>();
+        Time.timeScale = 1;
         radius = defaultRadius;
     }
 
