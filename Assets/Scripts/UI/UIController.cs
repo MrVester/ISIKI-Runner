@@ -7,7 +7,10 @@ using TMPro;
 
 public class UIController : MonoBehaviour
 {
+    public float timeAfterDeath = 2;
     public float timeToResume = 2;
+    [SerializeField]
+    private TMP_Text finalBarsCollected;
     [SerializeField]
     private GameObject pauseMenu;
     [SerializeField]
@@ -28,7 +31,7 @@ public class UIController : MonoBehaviour
         DeathScreen.SetActive(false);
         UIEvents.current.onGameStop += StopGame;
         UIEvents.current.onGameStart += StartGame;
-        //CharacterEvents.current.onDeath += Dead;
+        CharacterEvents.current.onDeath += Dead;
         resumeImage.fillAmount = 0f;
         resumeImage.type = Image.Type.Filled;
         resumeImage.fillMethod = Image.FillMethod.Radial360;
@@ -40,7 +43,8 @@ public class UIController : MonoBehaviour
     {
         pauseMenu.SetActive(false);
         Controls.GetComponent<Canvas>().enabled = false;
-        DeathScreen.SetActive(true);
+        finalBarsCollected.text = PointsSystem.current.GetPoints().ToString();
+        StartCoroutine(DeathScreenCoroutine());
     }
 
     private void StopGame()
@@ -75,6 +79,12 @@ public class UIController : MonoBehaviour
         Controls.GetComponent<Canvas>().enabled = true;
         Time.timeScale = 1;
         UIEvents.current.PlayStart();
+    }
+    IEnumerator DeathScreenCoroutine()
+    {
+        yield return new WaitForSeconds(timeAfterDeath);
+        DeathScreen.SetActive(true);
+        yield return null;
     }
 
 }

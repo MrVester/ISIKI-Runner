@@ -13,11 +13,13 @@ public class LevelGenerator : MonoBehaviour
     public List<GameObject> instances;
     private int randomPrefab;
     private int randomAngle;
+    private bool isCanMove = true;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        CharacterEvents.current.onDeath += StopMovement;
         //Generate first 7 tonnels
         for (int i = -1; i < startTonnelAmount - 1; i++)
         {
@@ -42,13 +44,21 @@ public class LevelGenerator : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
+    private void StopMovement()
+    {
+        isCanMove = false;
+    }
+    private void StartMovement()
+    {
+        isCanMove = true;
+    }
     void FixedUpdate()
     {
-        foreach (GameObject gameObject in instances)
-        {
-            gameObject.transform.Translate(0, 0, -1 * speed);
-        }
+        if (isCanMove)
+            foreach (GameObject gameObject in instances)
+            {
+                gameObject.transform.Translate(0, 0, -1 * speed);
+            }
         if (instances.Count != 0 && instances[0].transform.position.z < -40)
         {
             randomAngle = Random.Range(0, 8) * 45;

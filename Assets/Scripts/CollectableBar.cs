@@ -9,6 +9,7 @@ public class CollectableBar : MonoBehaviour
     {
         if (collider.CompareTag("Player"))
         {
+            AudioController.current.PlayPickUpSound();
             collider.GetComponent<PointsSystem>().AddPoints(points);
             Destroy(gameObject);
         }

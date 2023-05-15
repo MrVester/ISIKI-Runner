@@ -5,16 +5,25 @@ using UnityEngine;
 
 public class PointsSystem : MonoBehaviour
 {
-    private float points = 0;
+    public static PointsSystem current;
+    void Awake()
+    {
+        current = this;
+    }
+    private int points = 0;
     public TextMeshProUGUI textMeshPro;
 
     private void Start()
     {
-        textMeshPro.text = "Bars collected: 0";
+        textMeshPro.text = "0";
     }
     public void SetPoints(int points)
     {
         this.points = points;
+    }
+    public int GetPoints()
+    {
+        return this.points;
     }
     public void AddPoints(int points)
     {
@@ -23,6 +32,6 @@ public class PointsSystem : MonoBehaviour
     }
     public void DisplayPoints()
     {
-        textMeshPro.text = "Bars collected: " + points.ToString();
+        textMeshPro.text = points.ToString();
     }
 }

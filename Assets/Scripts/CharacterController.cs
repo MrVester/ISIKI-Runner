@@ -30,12 +30,15 @@ public class CharacterController : MonoBehaviour
     private bool isSwiping = false;
     private bool isInAir = false;
     private bool triggerJump = false;
+    public bool isControlsDisabled = false;
 
     public Animator animator;
-    // Start is called before the first frame update
+
     void Start()
     {
-        //animator = GetComponent<Animator>();
+        EnableControls();
+        CharacterEvents.current.onDeath += DeathAnim;
+        CharacterEvents.current.onDeath += DisableControls;
         radius = defaultRadius;
     }
 
@@ -47,6 +50,18 @@ public class CharacterController : MonoBehaviour
 
         Move();
 
+    }
+    private void DeathAnim()
+    {
+        animator.SetTrigger("Dead");
+    }
+    private void DisableControls()
+    {
+        isControlsDisabled = true;
+    }
+    private void EnableControls()
+    {
+        isControlsDisabled = false;
     }
     private void Move()
     {
@@ -85,7 +100,7 @@ public class CharacterController : MonoBehaviour
     }
     public void TriggerJump()
     {
-        if (!isInAir)
+        if (!isControlsDisabled && !isInAir)
         {
             animator.SetTrigger("Jump");
             animator.SetBool("IsInAir", true);
@@ -95,13 +110,21 @@ public class CharacterController : MonoBehaviour
     }
     public void OnLeftSwipe()
     {
-        if (!isSwiping)
+        if (!isControlsDisabled && !isSwiping)
+        {
+            AudioController.current.PlaySwipeSound();
             StartCoroutine(MoveSmoothAngle(-45));
+        }
     }
     public void OnRightSwipe()
     {
-        if (!isSwiping)
+
+        if (!isControlsDisabled && !isSwiping)
+        {
+            AudioController.current.PlaySwipeSound();
             StartCoroutine(MoveSmoothAngle(45));
+        }
+
     }
     void OnDrawGizmos()
     {
